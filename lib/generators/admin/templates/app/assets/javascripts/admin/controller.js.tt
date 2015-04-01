@@ -1,0 +1,31 @@
+angular.module("admin.<%= @resource_name.pluralize %>", [])
+
+  .controller("Admin<%= @resource_name.pluralize.capitalize %>IndexController", function ($scope, <%= @resource_name %>Service) {
+    $scope.<%= @resource_name.pluralize %> = [];
+    <%= @resource_name %>Service.index(function (data) {
+      $scope.<%= @resource_name.pluralize %> = data;
+    });
+  })
+
+  .controller("Admin<%= @resource_name.capitalize %>FormController", function ($scope, <%= @resource_name %>Service) {
+    $scope.<%= @resource_name %> = {}
+    <%= @resource_name %>Service.get($scope.id, function(data) {
+      $scope.<%= @resource_name %> = data;
+    })
+  })
+
+  .service("<%= @resource_name %>Service", function($http) {
+    var service = {
+      index: function(callback) {
+        var url = "/api/v1/<%= @resource_name.pluralize %>.json"
+        $http.get(url).success(callback);
+      },
+      get: function(id, callback) {
+        var url = "/api/v1/<%= @resource_name %>/" + id + ".json"
+        $http.get(url).success(callback);
+      }
+    };
+    return service;
+  })
+
+higgidyApp.requires.push('admin.<%= @resource_name.pluralize %>');

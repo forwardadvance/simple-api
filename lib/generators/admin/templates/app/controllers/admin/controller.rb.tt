@@ -1,0 +1,17 @@
+class Admin::<%= @resource_class.to_s.pluralize %>Controller < ApplicationController
+  before_action :set_<%= @resource_name %>, only: [:show, :update, :destroy]
+
+  include ApiMethods
+
+  # GET /admin/<%= @resource_name.pluralize %>
+  def index; end
+
+  # GET /admin/<%= @resource_name.pluralize %>/1
+  def show; end
+
+  # GET /admin/<%= @resource_name.pluralize %>/1
+  def new; end
+
+  # GET /admin/<%= @resource_name.pluralize %>/1
+  def edit; end
+end

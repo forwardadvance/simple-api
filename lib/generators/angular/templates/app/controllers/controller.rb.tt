@@ -1,0 +1,32 @@
+class <%= @resource_class.to_s.pluralize %>Controller < ApplicationController
+  include ApiMethods
+
+  # GET /<%= @resource_name.pluralize %>/list
+  def list
+    render layout: 'blank'
+  end
+
+  # GET /<%= @resource_name.pluralize %>/get
+  def get
+    render layout: 'blank'
+  end
+
+  # GET /<%= @resource_name.pluralize %>/form
+  def form
+    render layout: 'blank'
+  end
+
+
+
+  # GET /<%= @resource_name.pluralize %>
+  def index; end
+
+  # GET /<%= @resource_name.pluralize %>/1
+  def show; end
+
+  # GET /<%= @resource_name.pluralize %>/1
+  def new; end
+
+  # GET /<%= @resource_name.pluralize %>/1
+  def edit; end
+end

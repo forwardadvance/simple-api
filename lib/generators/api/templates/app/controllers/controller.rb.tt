@@ -1,0 +1,60 @@
+class Api::<%= @version.capitalize %>::<%= @resource_class.to_s.pluralize %>Controller < ApplicationController
+  before_action :set_<%= @resource_name %>, only: [:show, :update, :destroy]
+
+  include ApiMethods
+
+  # GET /api/<%= version %>/<%= @resource_name.pluralize %>.json
+  def index
+    @<%= @resource_name.pluralize %> = <%= @resource_class.to_s %>.all
+  end
+
+  # GET /api/<%= version %>/<%= @resource_name.pluralize %>/1.json
+  def show
+  end
+
+  # POST /api/<%= version %>/<%= @resource_name.pluralize %>.json
+  def create
+
+    @<%= @resource_name %> = <%= @resource_class.to_s %>.new(<%= @resource_name %>_params)
+
+    respond_to do |format|
+      if @<%= @resource_name %>.save
+        format.json { success }
+      else
+        format.json { error errors: @<%= @resource_name %>.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /api/<%= version %>/<%= @resource_name.pluralize %>/1.json
+  def update
+    respond_to do |format|
+      if @<%= @resource_name %>.update(<%= @resource_name %>_params)
+        format.json { head :no_content }
+      else
+        format.json { render json: @<%= @resource_name %>.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /api/<%= version %>/<%= @resource_name.pluralize %>/1.json
+  def destroy
+    @<%= @resource_name %>.destroy
+    respond_to do |format|
+      format.json { head :no_content }
+    end
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_<%= @resource_name %>
+      @<%= @resource_name %> = <%= @resource_class.to_s %>.find(params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    # Note, by default the generator includes all attributes, apart from the following list:
+    # [:id, :created_at, :updated_at, :password, :password_confirmation, :salt, :admin, :is_admin, :login]
+    def <%= @resource_name %>_params
+      params.permit(<%= @resource_class.attribute_names.map{|a|a.to_sym}-[:id, :created_at, :updated_at, :password, :password_confirmation, :salt, :admin, :is_admin, :login] %>)
+    end
+end

@@ -1,0 +1,12 @@
+json.array!(@<%= @resource_name.pluralize %>) do |<%= @resource_name %>|
+  json.extract! <%= @resource_name %>,
+    <%= (@resource_class.attribute_names.map{|a|":#{a}"}-[":created_at", ":updated_at", ":password", ":password_confirmation", ":salt", ":admin", ":is_admin", ":login"]).join(",\n    ") %>
+
+  json.dates do
+    json.created <%= @resource_name %>.created_at
+    json.updated <%= @resource_name %>.updated_at
+  end
+
+  #json.url <%= @resource_name.pluralize %>_url(<%= @resource_name %>, format: :json)
+end
+

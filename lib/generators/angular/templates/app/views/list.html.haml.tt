@@ -1,0 +1,15 @@
+%div{ng: {controller: '<%= @resource_class.to_s %>IndexController'}}
+  %input{placeholder: 'filter', ng: {model: 'filter'}}
+  %table
+
+    %tr
+    <%- @resource_class.attribute_names.each do |attribute| %>
+      %th
+        <%= attribute %>
+    <%- end %>
+
+    %tr{ ng: {repeat: '<%= @resource_name %> in <%= @resource_name.pluralize %> | filter:filter | orderBy:name'}}
+    <%- @resource_class.attribute_names.each do |attribute| %>
+      %td
+        {{<%= @resource_name %>.<%= attribute %>}}
+    <%- end %>

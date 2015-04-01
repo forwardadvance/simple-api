@@ -1,0 +1,4 @@
+=render :partial => "form"
+
+-content_for :sidebar do
+  = render :partial => "/admin/admin/sidebar"

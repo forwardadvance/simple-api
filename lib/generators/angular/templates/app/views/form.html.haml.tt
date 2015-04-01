@@ -1,0 +1,11 @@
+%div{ ng: { controller: "Admin<%= @resource_name.capitalize %>FormController", init: "image.id=2" } }
+
+  %form
+    %h1{ :'ng-bind-html' => '<%= @resource_name %>.title | wonky' }
+      <%= @resource_name.capitalize %>
+<%- @resource_class.attribute_names.each do |attribute| %>
+    %p
+      %label{ for: '<%= attribute %>' } <%= attribute.capitalize %>
+      %input{ name:'<%= attribute %>', ng: {model: 'article.<%= attribute %>' }}
+<%- end %>
+

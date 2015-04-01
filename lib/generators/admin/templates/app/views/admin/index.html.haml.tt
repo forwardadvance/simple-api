@@ -1,0 +1,26 @@
+%h1 <%= @resource_name.pluralize.capitalize %>
+
+%div{ng: {controller: 'Admin<%= @resource_name.pluralize.capitalize %>IndexController'}}
+  %input{placeholder: 'filter', ng: {model: 'filter'}}
+  %table
+    %tr{ ng: {repeat: '<%= @resource_name %> in <%= @resource_name.pluralize %> | filter:filter | orderBy:name', class: '{active: <%= @resource_name %>.active, inactive: !<%= @resource_name %>.active}'}}
+      %td
+        %strong
+          {{<%= @resource_name %>.name}}
+      %td
+        {{<%= @resource_name %>.category_name}}
+      %td
+        {{<%= @resource_name %>.active ? "&#10003;" : ""}}
+      %td
+        %a{ href: "{{<%= @resource_name %>.edit_path}}"} edit
+
+
+-content_for :admin_top_nav do
+  %ul
+    %li.first= link_to "New <%= @resource_name.capitalize %>", new_admin_<%= @resource_name %>_path
+
+-content_for :stylesheets do
+  = stylesheet_link_tag "admin"
+
+-content_for :sidebar do
+  = render :partial => "admin/admin/sidebar"
